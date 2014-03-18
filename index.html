@@ -116,9 +116,17 @@
 				$console = $("#console"),
 				$window = $(window);
 
-				$console.css({ "height": $window.innerHeight() });
+				$console.css({
+					"height": $window.innerHeight(),
+					"width": Math.floor($window.innerWidth() * 0.75)
+				});
+
 				$window.bind("resize", function () {
-					$console.css({ "height": $window.innerHeight() });
+					$console.css({
+						"height": $window.innerHeight(),
+						"width": Math.floor($window.innerWidth() * 0.75)
+					});
+
 					$console.children("div").scrollTop($console.children("div")[0].scrollHeight - $window.innerHeight());
 				});
 
