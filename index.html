@@ -151,20 +151,25 @@
 							 '\t"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle"\n' +
 							 '};\n\n',
 				$console = $("#console"),
-				$window = $(window);
+				$window = $(window),
+				smartPhoneWidth = 480,
+				initialWidth = $window.innerWidth();
 
 				$console.css({
 					"height": $window.innerHeight(),
-					"width": Math.floor($window.innerWidth() * 0.75)
+					"width": initialWidth <= smartPhoneWidth ? initialWidth : Math.floor(initialWidth * 0.75)
 				});
 
 				$window.bind("resize", function () {
+					var width = $window.innerWidth(),
+						height = $window.innerHeight();
+
 					$console.css({
-						"height": $window.innerHeight(),
-						"width": Math.floor($window.innerWidth() * 0.75)
+						"height": height,
+						"width": width <= smartPhoneWidth ? width : Math.floor(width * 0.75)
 					});
 
-					$console.children("div").scrollTop($console.children("div")[0].scrollHeight - $window.innerHeight());
+					$console.children("div").scrollTop($console.children("div")[0].scrollHeight - height);
 				});
 
 
