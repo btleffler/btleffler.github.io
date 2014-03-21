@@ -47,6 +47,11 @@
 			}
 			.jqconsole-cursor {
 				background-color: #839496;
+				animation: cursor-fade 2s infinite;
+				-webkit-animation: cursor-fade 2s infinite;
+				-moz-animation: cursor-fade 2s infinite;
+				-o-animation: cursor-fade 2s infinite;
+				-ms-animation: cursor-fade 2s infinite;
 			}
 			.jqconsole-blurred .jqconsole-cursor {
 				background-color: #839496;
@@ -87,6 +92,35 @@
 			::-webkit-scrollbar-thumb {
 				background: #839496;
 				border-radius: 2px;
+			}
+
+			/*
+			 Cursor Fade
+			 */
+			@keyframes cursor-fade {
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-webkit-keyframes cursor-fade {
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-moz-keyframes cursor-fade {
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-o-keyframes cursor-fade {
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-ms-keyframes cursor-fade {
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
 			}
 		</style>
 	</head>
