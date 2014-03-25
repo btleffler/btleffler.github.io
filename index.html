@@ -159,6 +159,7 @@
 							 '};\n\n',
 				$console = $("#console"),
 				$window = $(window),
+				$title = $(document).find("title"),
 				smartPhoneWidth = 800,
 				initialWidth = $window.innerWidth();
 
@@ -180,11 +181,14 @@
 				});
 
 
-				window.jqconsole = $('#console').jqconsole(header, ' \u003E ', '.. ');
+				window.jqconsole = $('#console').jqconsole(null, ' \u003E ', '.. ');
 
+				jqconsole.SetIndentWidth(2);
 				jqconsole.RegisterMatching('{', '}', 'brace');
 				jqconsole.RegisterMatching('(', ')', 'paran');
 				jqconsole.RegisterMatching('[', ']', 'bracket');
+				jqconsole.Write(header, true);
+
 				// Handle a command.
 				var handler = function(command) {
 					if (command) {
@@ -211,14 +215,26 @@
 
 				// Initiate the first prompt.
 				handler();
+				
+				// Title fun
+				setInterval(function () {
+					var title = $title.text();
+					
+					if (title.match(/_$/))
+						title = title.replace(/_$/, ' ');
+					else
+						title = title.replace(/\s*$/, ' _');
+					
+					$title.text(title);
+				}, 1000);
 			});
 
 			/**
 			 * Google Analytics
 			 */
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				(i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 			ga('create', 'UA-49098224-3', 'btleffler.github.io');
