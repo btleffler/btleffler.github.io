@@ -151,7 +151,7 @@
 		<div id="console"></div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jq-console/jqconsole.min.js"></script>
-			 <script>
+		<script>
 			$(function() {
 				window.btleffler = {
 					"contact": {
@@ -172,7 +172,10 @@
 							 '\t"StarsTrack": "<a href="http://btleffler.com/" title="StarsTrack" class="link">http://btleffler.com</a>",\n' +
 							 '\t"Ajaxer": "<a href="http://btleffler.github.io/Ajaxer" class="link">http://btleffler.github.io/Ajaxer</a>",\n' +
 							 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle" class="link">http://btleffler.github.io/jQuery-SwapStyle</a>"\n' +
-							 '};\n\n',
+							 '};\n\n' +
+							 '/**\n' +
+							 ' * light(); or dark(); or theme("light"|"dark"); // Defaults to dark\n' +
+							 ' */\n\n',
 				$console = $("#console"),
 				$window = $(window),
 				$title = $(document).find("title"),
@@ -206,7 +209,7 @@
 				jqconsole.Write(header, null, false);
 				
 				function processResult (result) {
-					if (!result)
+					if (!result || typeof result !== "string")
 						return result;
 					
 					// url
@@ -266,6 +269,19 @@
 					
 					$title.text(title);
 				}, 1000);
+
+				/**
+				 * Global stuff
+				 */
+				window.theme = function theme (theme) {
+					var color = theme == "light" ? "#fdf6e3" : "#002b36";
+					
+					$("html, body, pre")
+						.css({ "background-color": color });
+				};
+				
+				window.light = function light () { theme("light"); };
+				window.dark = function dark () { theme("dark"); };
 			});
 
 			/**
