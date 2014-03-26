@@ -31,6 +31,18 @@
 			html, body, pre, code {
 				font-family: "Inconsolata", sans-serif;
 			}
+			a {
+				text-decoration: underline;
+				color: #b58900;
+			}
+			a:visted {
+				text-decoration: underline;
+				color: #b58900;
+			}
+			a:hover {
+				text-decoration: underline;
+				color: #b58900;
+			}
 			#console {
 				height: 400px;
 				width: 750px;
@@ -82,6 +94,10 @@
 			.jqconsole-composition {
 				background-color: #dc322f;
 			}
+			
+			/*
+			  Scroll bar
+			 */
 			::-webkit-scrollbar {
 				width: 10px;
 				height: 10px;
@@ -95,7 +111,7 @@
 			}
 
 			/*
-			 Cursor Fade
+			  Cursor Fade
 			 */
 			@keyframes cursor-fade {
 				0% { opacity: 0; }
@@ -150,12 +166,12 @@
 				// Creating the console.
 				var header = '\nvar btleffler = {\n' +
 							 '\t"contact": {\n' +
-							 '\t\t"email": "btleffler@gmail.com",\n' +
-							 '\t\t"twitter": "@bleff"\n' +
+							 '\t\t"email": "<a href="mailto:btleffler@gmail.com" title="email" class="link">btleffler@gmail.com</a>",\n' +
+							 '\t\t"twitter": "<a href="https://twitter.com/bleff" title="twitter" class="link">@bleff</a>"\n' +
 							 '\t},\n' +
-							 '\t"StarsTrack": "http://btleffler.com",\n' +
-							 '\t"Ajaxer": "http://btleffler.github.io/Ajaxer",\n' +
-							 '\t"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle"\n' +
+							 '\t"StarsTrack": "<a href="http://btleffler.com/" title="StarsTrack" class="link">http://btleffler.com</a>",\n' +
+							 '\t"Ajaxer": "<a href="http://btleffler.github.io/Ajaxer" class="link">http://btleffler.github.io/Ajaxer</a>",\n' +
+							 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle" class="link">http://btleffler.github.io/jQuery-SwapStyle</a>"\n' +
 							 '};\n\n',
 				$console = $("#console"),
 				$window = $(window),
@@ -187,13 +203,36 @@
 				jqconsole.RegisterMatching('{', '}', 'brace');
 				jqconsole.RegisterMatching('(', ')', 'paran');
 				jqconsole.RegisterMatching('[', ']', 'bracket');
-				jqconsole.Write(header, true);
+				jqconsole.Write(header, null, false);
+				
+				function processResult (result) {
+					if (!result)
+						return result;
+					
+					// url
+					if (result.match(/^https?\:\/\//))
+						return '<a href="' + result + '" title="' + result + '">' + result + '</a>';
+					
+					// email
+					if (result.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
+						return '<a href="mailto:' + result + '" title="Email ' + result + '">' + result + '</a>';
+					
+					// twitter
+					if (result.match(/^@[A-Za-z0-9_]{1,15}$/))
+						return '<a href="https://twitter.com/' + result + '" title="' + result + '">' + result + '</a>';
+					
+					return result;
+				}
 
 				// Handle a command.
 				var handler = function(command) {
+					var result;
+					
 					if (command) {
 						try {
-							jqconsole.Write('==> ' + window.eval(command) + '\n');
+							result = window.eval(command);
+											
+							jqconsole.Write('==> ' + processResult(result) + '\n', null, false);
 						} catch (e) {
 							jqconsole.Write('ERROR: ' + e.message + '\n');
 						}
