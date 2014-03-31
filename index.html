@@ -26,7 +26,7 @@
 				color: #839496;
 				margin: 0;
 				padding: 0;
-				font-size: 13pt;
+				font-size: 14pt;
 			}
 			html, body, pre, code {
 				font-family: "Inconsolata", sans-serif;
@@ -94,7 +94,7 @@
 			.jqconsole-composition {
 				background-color: #dc322f;
 			}
-			
+
 			/*
 			  Scroll bar
 			 */
@@ -158,20 +158,26 @@
 						"email": "btleffler@gmail.com",
 						"twitter": "@bleff"
 					},
-					"StarsTrack": "http://btleffler.com",
 					"Ajaxer": "http://btleffler.github.io/Ajaxer",
-					"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle"
+					"GitHub": "https://github.com/btleffler",
+					"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle",
+					"Node File-List": "https://www.npmjs.org/package/file-list",
+					"RandomStream": "http://random.btleffler.com/",
+					"StarsTrack": "http://btleffler.com",
 				};
 
 				// Creating the console.
 				var header = '\nvar btleffler = {\n' +
 							 '\t"contact": {\n' +
-							 '\t\t"email": "<a href="mailto:btleffler@gmail.com" title="email" class="link">btleffler@gmail.com</a>",\n' +
-							 '\t\t"twitter": "<a href="https://twitter.com/bleff" title="twitter" class="link">@bleff</a>"\n' +
+							 '\t\t"email": "<a href="mailto:btleffler@gmail.com" title="email">btleffler@gmail.com</a>",\n' +
+							 '\t\t"twitter": "<a href="https://twitter.com/bleff" title="twitter">@bleff</a>"\n' +
 							 '\t},\n' +
-							 '\t"StarsTrack": "<a href="http://btleffler.com/" title="StarsTrack" class="link">http://btleffler.com</a>",\n' +
-							 '\t"Ajaxer": "<a href="http://btleffler.github.io/Ajaxer" class="link">http://btleffler.github.io/Ajaxer</a>",\n' +
-							 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle" class="link">http://btleffler.github.io/jQuery-SwapStyle</a>"\n' +
+							 '\t"Ajaxer": "<a href="http://btleffler.github.io/Ajaxer">http://btleffler.github.io/Ajaxer</a>",\n' +
+							 '\t"GitHub": "<a href="https://github.com/btleffler" title="btleffler on Github">https://github.com/btleffler</a>",\n' +
+							 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle">http://btleffler.github.io/jQuery-SwapStyle</a>",\n' +
+							 '\t"Node File-List": "<a href="https://www.npmjs.org/package/file-list" title="Node File-List">https://www.npmjs.org/package/file-list</a>,\n' +
+							 '\t"RandomStream": "<a href="http://random.btleffler.com/" title="RandomStream">http://random.btleffler.com</a>",\n' +
+							 '\t"StarsTrack": "<a href="http://btleffler.com/" title="StarsTrack">http://btleffler.com</a>"\n' +
 							 '};\n\n' +
 							 '/**\n' +
 							 ' * light(); or dark(); or theme("light"|"dark"); // Defaults to dark\n' +
@@ -207,34 +213,34 @@
 				jqconsole.RegisterMatching('(', ')', 'paran');
 				jqconsole.RegisterMatching('[', ']', 'bracket');
 				jqconsole.Write(header, null, false);
-				
+
 				function processResult (result) {
 					if (!result || typeof result !== "string")
 						return result;
-					
+
 					// url
 					if (result.match(/^https?\:\/\//))
 						return '<a href="' + result + '" title="' + result + '">' + result + '</a>';
-					
+
 					// email
 					if (result.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
 						return '<a href="mailto:' + result + '" title="Email ' + result + '">' + result + '</a>';
-					
+
 					// twitter
 					if (result.match(/^@[A-Za-z0-9_]{1,15}$/))
 						return '<a href="https://twitter.com/' + result + '" title="' + result + '">' + result + '</a>';
-					
+
 					return result;
 				}
 
 				// Handle a command.
 				var handler = function(command) {
 					var result;
-					
+
 					if (command) {
 						try {
 							result = window.eval(command);
-											
+
 							jqconsole.Write('==> ' + processResult(result) + '\n', null, false);
 						} catch (e) {
 							jqconsole.Write('ERROR: ' + e.message + '\n');
@@ -257,16 +263,16 @@
 
 				// Initiate the first prompt.
 				handler();
-				
+
 				// Title fun
 				setInterval(function () {
 					var title = $title.text();
-					
+
 					if (title.match(/_$/))
 						title = title.replace(/_$/, ' ');
 					else
 						title = title.replace(/\s*$/, ' _');
-					
+
 					$title.text(title);
 				}, 1000);
 
@@ -275,11 +281,11 @@
 				 */
 				window.theme = function theme (theme) {
 					var color = theme == "light" ? "#fdf6e3" : "#002b36";
-					
+
 					$("html, body, pre")
 						.css({ "background-color": color });
 				};
-				
+
 				window.light = function light () { theme("light"); };
 				window.dark = function dark () { theme("dark"); };
 			});
