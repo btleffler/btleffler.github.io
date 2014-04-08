@@ -1,0 +1,136 @@
+body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+html {
+	overflow-y: auto;
+}
+html, body {
+	background-color: #002b36;
+	color: #839496;
+	margin: 0;
+	padding: 0;
+	font-size: 14pt;
+}
+html, body, pre, code {
+	font-family: "Inconsolata", sans-serif;
+}
+a {
+	text-decoration: underline;
+	color: #b58900;
+}
+a:visted {
+	text-decoration: underline;
+	color: #b58900;
+}
+a:hover {
+	text-decoration: underline;
+	color: #b58900;
+}
+#console {
+	height: 400px;
+	width: 750px;
+	position:relative;
+	margin: 0 auto;
+	tab-size: 2;
+	-moz-tab-size: 2;
+	-o-tab-size: 2;
+	-webkit-tab-size: 2;
+}
+.jqconsole {
+	padding: 10px;
+	padding-bottom: 10px;
+}
+.jqconsole-cursor {
+	background-color: #839496;
+	animation: cursor-fade 1s infinite;
+	-webkit-animation: cursor-fade 1s infinite;
+	-moz-animation: cursor-fade 1s infinite;
+	-o-animation: cursor-fade 1s infinite;
+	-ms-animation: cursor-fade 1s infinite;
+}
+.jqconsole-blurred .jqconsole-cursor {
+	background-color: #839496;
+}
+.jqconsole-prompt {
+	color: #657b83;
+}
+.jqconsole-old-prompt {
+	color: #657b83;
+	font-weight: normal;
+}
+.jqconsole-input {
+	color: #839496;
+}
+.jqconsole-old-input {
+	color: #839496;
+	font-weight: normal;
+}
+.brace {
+	color: #268bd2;
+}
+.paran {
+	color: #839496;
+}
+.bracket {
+	color: #268bd2;
+}
+.jqconsole-composition {
+	background-color: #dc322f;
+}
+
+/*
+  Scroll bar
+ */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: #839496;
+	border-radius: 2px;
+}
+
+/*
+  Cursor Fade
+ */
+@keyframes cursor-fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@-webkit-keyframes cursor-fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@-moz-keyframes cursor-fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@-o-keyframes cursor-fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@-ms-keyframes cursor-fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+/*
+  Smartphone
+ */
+@media only screen and (min-device-width : 320px) and (max-device-width : 800px) {
+	html, body { font-size: 10pt; }
+}
