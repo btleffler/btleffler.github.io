@@ -1,4 +1,6 @@
 $(function() {
+	"use strict";
+
 	// Creating the console.
 	var header = '\nvar btleffler = {\n' +
 	 '\t"contact": {\n' +
