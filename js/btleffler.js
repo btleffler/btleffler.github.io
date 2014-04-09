@@ -1,3 +1,27 @@
+(function ($) {
+	"use strict";
+	window.trackClick = function (event) {
+		var $this = $(this),
+			href = $this.attr("href");
+
+		event.preventDefault();
+
+		ga("send", "event", "outbound", "click", href, {
+			"hitCallBack": function () {
+				var newClick = $.Event("click");
+
+				// We don't need to track this anymore
+				$this.off("click");
+				$this.trigger(newClick);
+
+				// If this was a middle click or something, we should start tracking again.
+				if (event.which !== 1)
+					$this.on("click", trackClick);
+			}
+		});
+	};
+})(jQuery);
+
 $(function() {
 	"use strict";
 
@@ -41,13 +65,16 @@ $(function() {
 	});
 
 
-	window.jqconsole = $('#console').jqconsole(null, ' \u003E ', '.. ');
+	window.jqconsole = $console.jqconsole(null, ' \u003E ', '.. ');
 
 	jqconsole.SetIndentWidth(2);
 	jqconsole.RegisterMatching('{', '}', 'brace');
 	jqconsole.RegisterMatching('(', ')', 'paran');
 	jqconsole.RegisterMatching('[', ']', 'bracket');
 	jqconsole.Write(header, null, false);
+
+	// Track clicks on the initial links
+	$('a').on("click", trackClick);
 
 	function processResult (result) {
 		if (!result || typeof result !== "string")
@@ -77,6 +104,9 @@ $(function() {
 				result = window.eval(command);
 
 				jqconsole.Write('==> ' + processResult(result) + '\n', null, false);
+
+				// Sort of hacky, this way we don't care if the new line has a link in it.
+				$console.find('a').last().off("click").on("click", trackClick);
 			} catch (e) {
 				jqconsole.Write('ERROR: ' + e.message + '\n');
 			}
