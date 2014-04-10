@@ -11,9 +11,7 @@ var trackClick = function (event) {
 		newTab = window.open(href, "_blank");
 
 	function cb () {
-		if (target === "_blank" || event.which !== 1)
-			newTab.focus();
-		else
+		if (target !== "_blank" || event.which === 1)
 			window.location = href;
 	}
 
