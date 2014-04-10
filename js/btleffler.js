@@ -6,11 +6,13 @@ var trackClick = function (event) {
 	event.preventDefault();
 
 	function cb () {
-		var target = $this.attr("target");
+		var target = $this.attr("target"),
+			newTab;
 
-		if (target === "_blank" || event.which !== 1)
-			window.open(href);
-		else
+		if (target === "_blank" || event.which !== 1) {
+			newTab = window.open(href, "_blank");
+			newTab.focus();
+		}	else
 			window.location = href;
 	}
 
