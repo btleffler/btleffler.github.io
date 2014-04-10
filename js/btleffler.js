@@ -5,19 +5,16 @@ var trackClick = function (event) {
 
 	event.preventDefault();
 
-	ga("send", "event", "outbound", "click", href, {
-		"hitCallBack": function () {
-			var newClick = $.Event("click");
+	function cb () {
+		var target = $this.attr("target");
 
-			// We don't need to track this anymore
-			$this.off("click");
-			$this.trigger(newClick);
+		if (target === "_blank" || event.which !== 1)
+			window.open(href);
+		else
+			window.location = href;
+	}
 
-			// If this was a middle click or something, we should start tracking again.
-			if (event.which !== 1)
-				$this.on("click", trackClick);
-		}
-	});
+	ga("send", "event", "outbound", "click", href, { "hitCallback": cb });
 };
 
 $(function() {
