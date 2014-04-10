@@ -155,10 +155,21 @@ $(function() {
 	};
 
 	window.theme = function theme (style) {
-		var color = style == "light" ? "#fdf6e3" : "#002b36";
+		var bgcolor, color;
+
+		if (style == "light") {
+			bgcolor = "#fdf6e3";
+			color = "#657b83";
+		} else {
+			bgcolor = "#002b36";
+			color = "#839496";
+		}
 
 		$("html, body, pre")
-			.css({ "background-color": color });
+			.css({
+				"background-color": bgcolor,
+				"color": color
+			});
 	};
 
 	window.light = function light () { theme("light"); };
