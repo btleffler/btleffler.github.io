@@ -1,18 +1,19 @@
 var trackClick = function (event) {
 	"use strict";
 	var $this = $(this),
-		href = $this.attr("href");
+		href = $this.attr("href"),
+		target = $this.attr("target"),
+		newTab;
 
 	event.preventDefault();
 
-	function cb () {
-		var target = $this.attr("target"),
-			newTab;
+	if (target === "_blank" || event.which !== 1)
+		newTab = window.open(href, "_blank");
 
-		if (target === "_blank" || event.which !== 1) {
-			newTab = window.open(href, "_blank");
+	function cb () {
+		if (target === "_blank" || event.which !== 1)
 			newTab.focus();
-		}	else
+		else
 			window.location = href;
 	}
 
