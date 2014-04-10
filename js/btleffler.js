@@ -1,26 +1,24 @@
-(function ($) {
+var trackClick = function (event) {
 	"use strict";
-	window.trackClick = function (event) {
-		var $this = $(this),
-			href = $this.attr("href");
+	var $this = $(this),
+		href = $this.attr("href");
 
-		event.preventDefault();
+	event.preventDefault();
 
-		ga("send", "event", "outbound", "click", href, {
-			"hitCallBack": function () {
-				var newClick = $.Event("click");
+	ga("send", "event", "outbound", "click", href, {
+		"hitCallBack": function () {
+			var newClick = $.Event("click");
 
-				// We don't need to track this anymore
-				$this.off("click");
-				$this.trigger(newClick);
+			// We don't need to track this anymore
+			$this.off("click");
+			$this.trigger(newClick);
 
-				// If this was a middle click or something, we should start tracking again.
-				if (event.which !== 1)
-					$this.on("click", trackClick);
-			}
-		});
-	};
-})(jQuery);
+			// If this was a middle click or something, we should start tracking again.
+			if (event.which !== 1)
+				$this.on("click", trackClick);
+		}
+	});
+};
 
 $(function() {
 	"use strict";
