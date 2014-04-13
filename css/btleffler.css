@@ -47,7 +47,8 @@ a:hover {
 	padding-bottom: 10px;
 }
 .jqconsole-cursor {
-	background-color: #839496;
+	background-color: transparent;
+	border-bottom: 2px solid #839496;
 	animation: cursor-fade 1s infinite;
 	-webkit-animation: cursor-fade 1s infinite;
 	-moz-animation: cursor-fade 1s infinite;
