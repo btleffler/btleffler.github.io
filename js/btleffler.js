@@ -1,16 +1,17 @@
 var trackClick = function (event) {
 	"use strict";
 	var $this = $(this),
-		href = $this.attr("href");
+		href = $this.attr("href"),
+		target = $this.attr("target"),
+		newTab;
 
 	event.preventDefault();
 
-	function cb () {
-		var target = $this.attr("target");
+	if (target === "_blank" || event.which !== 1)
+		newTab = window.open(href, "_blank");
 
-		if (target === "_blank" || event.which !== 1)
-			window.open(href);
-		else
+	function cb () {
+		if (target !== "_blank" || event.which === 1)
 			window.location = href;
 	}
 
@@ -153,10 +154,21 @@ $(function() {
 	};
 
 	window.theme = function theme (style) {
-		var color = style == "light" ? "#fdf6e3" : "#002b36";
+		var bgcolor, color;
+
+		if (style == "light") {
+			bgcolor = "#fdf6e3";
+			color = "#657b83";
+		} else {
+			bgcolor = "#002b36";
+			color = "#839496";
+		}
 
 		$("html, body, pre")
-			.css({ "background-color": color });
+			.css({
+				"background-color": bgcolor,
+				"color": color
+			});
 	};
 
 	window.light = function light () { theme("light"); };
