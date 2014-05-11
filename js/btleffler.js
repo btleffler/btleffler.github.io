@@ -110,7 +110,7 @@ $(function() {
 		jqconsole.Prompt(true, handler, function(command) {
 			// Continue line if can't compile the command.
 			try {
-				Function(command);
+				new Function(command);
 			} catch (e) {
 				if (/[\[\{\(]$/.test(command)) {
 					return 1;
