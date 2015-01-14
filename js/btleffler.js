@@ -2,18 +2,17 @@ var trackClick = function (event) {
 	"use strict";
 	var $this = $(this),
 		href = $this.attr("href"),
-		target = $this.attr("target"),
-		newTab;
+		target = $this.attr("target");
+
+	var cb = function () {
+		if (target !== "_blank" && event.which === 1)
+			window.location = href;
+	};
 
 	event.preventDefault();
 
 	if (target === "_blank" || event.which !== 1)
-		newTab = window.open(href, "_blank");
-
-	function cb () {
-		if (target !== "_blank" || event.which === 1)
-			window.location = href;
-	}
+		window.open(href, "_blank");
 
 	ga("send", "event", "outbound", "click", href, { "hitCallback": cb });
 };
