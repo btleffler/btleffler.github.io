@@ -153,7 +153,7 @@ $(function() {
 		"StarsTrack": "http://btleffler.com",
 	};
 
-	window.theme = function theme (style) {
+	window.theme = function (style) {
 		var bgcolor, color;
 
 		if (style == "light") {
@@ -164,13 +164,12 @@ $(function() {
 			color = "#839496";
 		}
 
-		$("html, body, pre")
-			.css({
+		$("html, body, pre").css({
 				"background-color": bgcolor,
 				"color": color
 			});
 	};
 
-	window.light = function light () { theme("light"); };
-	window.dark = function dark () { theme("dark"); };
+	window.light = function () { theme("light"); };
+	window.dark = function () { theme("dark"); };
 });
