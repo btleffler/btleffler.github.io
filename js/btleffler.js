@@ -104,7 +104,7 @@ $(function() {
 				// Sort of hacky, this way we don't care if the new line has a link in it.
 				$console.find('a').last().off("click").on("click", trackClick);
 			} catch (e) {
-				jqconsole.Write('ERROR: ' + e.message + '\n');
+				jqconsole.Write('ERROR:\n' + e.stack + '\n');
 			}
 		}
 		jqconsole.Prompt(true, handler, function(command) {
