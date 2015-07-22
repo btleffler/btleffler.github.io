@@ -31,7 +31,7 @@ $(function() {
 	 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle">http://btleffler.github.io/jQuery-SwapStyle</a>",\n' +
 	 '\t"Node File-List": "<a href="https://www.npmjs.org/package/file-list" title="Node File-List">https://www.npmjs.org/package/file-list</a>,\n' +
 	 '\t"RandomStream": "<a href="http://random.btleffler.com/" title="RandomStream">http://random.btleffler.com</a>",\n' +
-	 '\t"StarsTrack": "<a href="http://btleffler.com/" title="StarsTrack">http://btleffler.com</a>"\n' +
+	 '\t"StarsTrack": "<a href="http://btleffler.github.io/StarsTrack" title="StarsTrack">http://btleffler.com</a>"\n' +
 	 '};\n\n' +
 	 '/**\n' +
 	 ' * light(); or dark(); or theme("light"|"dark"); // Defaults to dark\n' +
@@ -149,7 +149,7 @@ $(function() {
 		"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle",
 		"Node File-List": "https://www.npmjs.org/package/file-list",
 		"RandomStream": "http://random.btleffler.com/",
-		"StarsTrack": "http://btleffler.com",
+		"StarsTrack": "http://btleffler.github.io/StarsTrack",
 	};
 
 	window.theme = function (style) {
