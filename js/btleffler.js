@@ -30,7 +30,7 @@ $(function() {
 	 '\t"GitHub": "<a href="https://github.com/btleffler" title="btleffler on Github">https://github.com/btleffler</a>",\n' +
 	 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle">http://btleffler.github.io/jQuery-SwapStyle</a>",\n' +
 	 '\t"Node File-List": "<a href="https://www.npmjs.org/package/file-list" title="Node File-List">https://www.npmjs.org/package/file-list</a>,\n' +
-	 '\t"RandomStream": "<a href="http://random.btleffler.com/" title="RandomStream">http://random.btleffler.com</a>",\n' +
+	 '\t"RandomStream": "<a href="https://github.com/btleffler/RandomStream" title="RandomStream">https://github.com/btleffler/RandomStream</a>",\n' +
 	 '\t"StarsTrack": "<a href="http://btleffler.github.io/StarsTrack" title="StarsTrack">http://btleffler.github.io/StarsTrack</a>"\n' +
 	 '};\n\n' +
 	 '/**\n' +
@@ -148,7 +148,7 @@ $(function() {
 		"GitHub": "https://github.com/btleffler",
 		"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle",
 		"Node File-List": "https://www.npmjs.org/package/file-list",
-		"RandomStream": "http://random.btleffler.com/",
+		"RandomStream": "https://github.com/btleffler/RandomStream",
 		"StarsTrack": "http://btleffler.github.io/StarsTrack",
 	};
 
