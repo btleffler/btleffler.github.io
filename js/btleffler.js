@@ -29,6 +29,7 @@ $(function() {
 	 '\t"Ajaxer": "<a href="http://btleffler.github.io/Ajaxer">http://btleffler.github.io/Ajaxer</a>",\n' +
 	 '\t"GitHub": "<a href="https://github.com/btleffler" title="btleffler on Github">https://github.com/btleffler</a>",\n' +
 	 '\t"jQuery-SwapStyle": "<a href="http://btleffler.github.io/jQuery-SwapStyle" title="jQuery-SwapStyle">http://btleffler.github.io/jQuery-SwapStyle</a>",\n' +
+	 '\t"Lunarized-Solo": "<a href="https://atom.io/themes/lunarized-solo-syntax" title="Lunarized-Solo">https://atom.io/themes/lunarized-solo-syntax</a>,\n' +
 	 '\t"Node File-List": "<a href="https://www.npmjs.org/package/file-list" title="Node File-List">https://www.npmjs.org/package/file-list</a>,\n' +
 	 '\t"RandomStream": "<a href="https://github.com/btleffler/RandomStream" title="RandomStream">https://github.com/btleffler/RandomStream</a>",\n' +
 	 '\t"StarsTrack": "<a href="http://btleffler.github.io/StarsTrack" title="StarsTrack">http://btleffler.github.io/StarsTrack</a>"\n' +
@@ -147,6 +148,7 @@ $(function() {
 		"Ajaxer": "http://btleffler.github.io/Ajaxer",
 		"GitHub": "https://github.com/btleffler",
 		"jQuery-SwapStyle": "http://btleffler.github.io/jQuery-SwapStyle",
+		"Lunarized-Solo": "https://atom.io/themes/lunarized-solo-syntax",
 		"Node File-List": "https://www.npmjs.org/package/file-list",
 		"RandomStream": "https://github.com/btleffler/RandomStream",
 		"StarsTrack": "http://btleffler.github.io/StarsTrack",
