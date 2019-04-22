@@ -18,7 +18,7 @@ html, body {
 	font-size: 14pt;
 }
 html, body, pre, code {
-	font-family: "Roboto Mono Light", sans-serif;
+	font-family: "Roboto Mono Light", "Roboto Mono", sans-serif;
 }
 a {
 	text-decoration: underline;
