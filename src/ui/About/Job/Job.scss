@@ -1,0 +1,12 @@
+.job {
+  margin-bottom: 1.5rem;
+
+  &__dates {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  &__list-header {
+    text-decoration: underline;
+  }
+}

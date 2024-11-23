@@ -1,0 +1,21 @@
+.home-link {
+  position: relative;
+
+  & .title {
+    margin-right: 3rem;
+  }
+
+  & .hover-feedback {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+}
+
+.home-link:hover {
+  & .hover-feedback {
+    opacity: 1;
+  }
+}

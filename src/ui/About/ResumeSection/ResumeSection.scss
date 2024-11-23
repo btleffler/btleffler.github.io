@@ -1,0 +1,19 @@
+.resume__section {
+  &-content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &-title {
+    position: absolute;
+    top: -1.5rem;
+    right: -0.5rem;
+    font-size: 42pt;
+    opacity: 0.3;
+    transform: rotate(-5deg);
+  }
+
+  &-children {
+    z-index: 1;
+  }
+}
