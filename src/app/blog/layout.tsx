@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import type { BlogParams } from '@/blog/types';
 import Grid from '@mui/material/Grid2';
 import Navigation from '@/ui/Blog/Navigation';
+import { MappedByDate } from '@/data/Blog/Posts';
 
 export async function generateMetadata (
   { params }: BlogParams
@@ -22,16 +23,17 @@ export async function generateMetadata (
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  const posts = await MappedByDate(true);
   return (
     <Grid
       container
       spacing={ 4 }>
-      <Navigation />
+      <Navigation posts={ posts }/>
       { children }
     </Grid>
   );

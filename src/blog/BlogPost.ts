@@ -51,6 +51,16 @@ export default class BlogPost implements Post {
     return this.content;
   }
 
+  async serialized () {
+    if (!this.content) {
+      await this.loadContent();
+    }
+
+    return JSON.parse(
+      JSON.stringify(this),
+    );
+  }
+
   static async fromPath (postPath: string) {
     const defaultSlug = path.basename(postPath);
 
