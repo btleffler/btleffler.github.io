@@ -8,18 +8,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import BlogPost from '@/blog/BlogPost';
-import { PostsMappedByDate } from '@/data/types';
+import { LinksMappedByDate } from '@/data/Blog/types';
+
+import './styles.scss';
 
 function NavItem ({
   href,
+  selected,
   title,
 }: {
   href: string,
+  selected: boolean,
   title: string,
 }) {
   return (
-    <ListItemButton href={ href }>
+    <ListItemButton href={ href } selected={ selected }>
       <ListItemText primary={ title } />
     </ListItemButton>
   );
@@ -47,7 +50,7 @@ function NavGroup ({
         in={ open }
         timeout="auto"
         unmountOnExit>
-        <List component="div">
+        <List component="div" className="blog-navigation__group">
           { children }
         </List>
       </Collapse>
@@ -56,50 +59,52 @@ function NavGroup ({
 }
 
 export default function Navigation ({
+  expandAll,
+  monthIndex,
   posts,
+  slug,
+  yearIndex,
 }: {
-  posts: PostsMappedByDate[]
+  expandAll: boolean,
+  monthIndex: number,
+  posts: LinksMappedByDate[],
+  slug: string,
+  yearIndex: number,
 }) {
-  // Get total number of posts
-  const total = posts.reduce((total, { months }) => {
-    return total + months.reduce((total, { posts }) => {
-      return total + posts.length;
-    }, 0);
-  }, 0);
-
-  console.log({ total });
-
-  // Find the first year
-  const firstIndex = posts.findLastIndex((posts) => posts);
-
   // Map out all the links/nav groups
   const links = posts.map((
-    posts: PostsMappedByDate,
-    idx: number,
+    posts: LinksMappedByDate,
+    linksYearIndex: number,
   ) => {
-    const collapsed = total < 9 || idx === firstIndex;
-    const firstMonthIndex = posts.months.findLastIndex((posts) => posts);
+    const collapsed = !expandAll && linksYearIndex !== yearIndex;
     const monthGroups = posts.months.map(({
       month,
       posts,
     }: {
       month: string,
-      posts: BlogPost[]
-    }, idx: number) => {
-      const collapsed = total < 9 || idx === firstMonthIndex;
+      posts: {
+        slug: string,
+        title: string,
+      }[]
+    }, linksMonthIndex: number) => {
+      const collapsed = !expandAll && linksMonthIndex !== monthIndex;
       const postLinks = posts.map((
-        post: BlogPost,
+        post: {
+          slug: string,
+          title: string,
+        },
         idx: number,
       ) => (
         <NavItem
           key={ idx }
           href={ `/blog/${post.slug}` }
-          title={ post.title } />
+          title={ post.title }
+          selected={ slug === post.slug } />
       ));
 
       return (
         <NavGroup
-          key={ idx }
+          key={ linksMonthIndex }
           collapsed={ collapsed }
           header={ month }>
           { postLinks }
@@ -109,7 +114,7 @@ export default function Navigation ({
 
     return (
       <NavGroup
-        key={ idx }
+        key={ linksYearIndex }
         collapsed={ collapsed }
         header={ posts.year }>
         { monthGroups }
@@ -120,8 +125,9 @@ export default function Navigation ({
   return (
     <List
       component="nav"
+      className="blog-navigation"
       subheader={
-        <ListSubheader>Archive</ListSubheader>
+        <ListSubheader>Posts</ListSubheader>
       }>
       { links }
     </List>

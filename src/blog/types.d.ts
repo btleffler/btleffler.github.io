@@ -1,4 +1,7 @@
+import { ReactNode } from 'react';
+
 export type BlogParams = {
+  children: ReactNode
   params: Promise<{ postSlug: string | undefined }>,
 }
 

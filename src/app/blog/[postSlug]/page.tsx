@@ -9,11 +9,14 @@ export async function generateStaticParams() {
   return posts.map(({ slug: postSlug }) => ({ postSlug }));
 }
 
-export default async function BlogPostPage (
-  { params }: BlogParams
-) {
-  const slug = (await params).postSlug;
-  const Post = (await Posts()).find(({ slug: postSlug }) => slug === postSlug) as BlogPost;
+export default async function BlogPostPage ({
+  params,
+}: BlogParams) {
+  const routeParams = await params;
+  const posts = await Posts();
+
+  const slug = routeParams.postSlug;
+  const Post = posts.find(({ slug: postSlug }) => slug === postSlug) as BlogPost;
   const content = await Post.loadContent();
 
   return (

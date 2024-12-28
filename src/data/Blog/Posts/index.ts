@@ -1,7 +1,9 @@
 import { promises as Fs } from 'fs';
 import path from 'path';
 import BlogPost from '@/blog/BlogPost';
-import type { PostsMappedByDate } from '@/data/types';
+import type { LinksMappedByDate } from '../types';
+
+const IGNORED = ['index.ts', '.DS_Store'];
 
 const DEFAULT_POST: BlogPost = new BlogPost('no_path', {
   created: new Date().toISOString(),
@@ -17,10 +19,12 @@ const POSTS_PATH = path.join(process.cwd(), 'src', 'data', 'Blog', 'Posts');
 
 const postCache: {
   posts: BlogPost[],
-  mappedByDate: PostsMappedByDate[]
+  mappedByDate: LinksMappedByDate[],
+  total: number,
 } = {
   posts: [],
   mappedByDate: [],
+  total: 0,
 };
 
 function monthString (date: Date): string {
@@ -34,7 +38,7 @@ export default async function Posts (): Promise<BlogPost[]> {
     // Get all posts sorted by created date descending
     postCache.posts = (await Promise.all(
       directory
-        .filter((file) => file !== 'index.ts')
+        .filter((file) => !IGNORED.includes(file))
         .map(async (file) => BlogPost.fromPath(path.join(POSTS_PATH, file)))
     )).sort((
       a: BlogPost,
@@ -47,19 +51,23 @@ export default async function Posts (): Promise<BlogPost[]> {
     }
   }
 
+  postCache.total = postCache.posts.length;
+
   return postCache.posts;
 }
 
-export async function MappedByDate (
-  plainObject: boolean = true,
-): Promise<PostsMappedByDate[]> {
+export async function MappedByDate (): Promise<{
+  posts: LinksMappedByDate[],
+  total: number,
+}> {
   if (postCache.mappedByDate.length) {
-    return postCache.mappedByDate;
+    return {
+      posts: postCache.mappedByDate,
+      total: postCache.total,
+    };
   }
 
-  await Posts();
-
-  const posts = postCache.posts;
+  const posts = await Posts();
 
   posts.forEach(async (post, idx) => {
     const { created } = post;
@@ -80,12 +88,38 @@ export async function MappedByDate (
     };
 
     // Map the post to it's [year].months[month].posts
-    postCache.mappedByDate[year].months[monthIndex].posts[idx] = plainObject ?
-      await post.serialized() :
-      post;
+    postCache.mappedByDate[year].months[monthIndex].posts[idx] = {
+      title: post.title,
+      slug: post.slug,
+    };
   });
 
   postCache.mappedByDate = postCache.mappedByDate.reverse();
 
-  return postCache.mappedByDate;
+  // If no posts, return the default
+  if (!postCache.mappedByDate.length) {
+    const now = new Date();
+    const yearIndex = now.getFullYear();
+    const year = String(yearIndex);
+    const monthIndex = now.getMonth();
+    const month = monthString(now);
+
+    postCache.mappedByDate[yearIndex] = {
+      year,
+      months: [],
+    };
+
+    postCache.mappedByDate[yearIndex].months[monthIndex] = {
+      month,
+      posts: [{
+        slug: DEFAULT_POST.slug,
+        title: DEFAULT_POST.title,
+      }],
+    };
+  }
+
+  return {
+    posts: postCache.mappedByDate,
+    total: postCache.total,
+  };
 }
