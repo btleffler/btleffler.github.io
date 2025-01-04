@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export type BlogParams = {
   children: ReactNode
-  params: Promise<{ postSlug: string | undefined }>,
+  params: Promise<{ postSlug: string }>,
 }
 
 export type Post = {

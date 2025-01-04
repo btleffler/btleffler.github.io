@@ -8,18 +8,12 @@ import BlogPost from '@/blog/BlogPost';
 export async function generateMetadata (
   { params }: BlogParams
 ): Promise<Metadata> {
-  const slug = (await params).postSlug;
-
-  if (slug) {
-    return {
-      title: `Benjamin Leffler - ${slug}`,
-      description: slug,
-    };
-  }
+  const routeParams = await params;
+  const slug = decodeURI(routeParams.postSlug);
 
   return {
-    title: 'Benjamin leffler - Blog',
-    description: 'Random things I think of',
+    title: `Benjamin Leffler - ${slug}`,
+    description: slug,
   };
 }
 
@@ -28,14 +22,11 @@ export default async function RootLayout({
   params,
 }: BlogParams) {
   const routeParams = await params;
+  const postSlug = decodeURI(routeParams.postSlug);
 
-  const { posts, total } = await MappedByDate();
   const allPosts = await Posts();
-  const firstPostSlug = posts.find((year) => year)
-    ?.months.find((month) => month)
-    ?.posts.find(({ slug }) => slug)?.slug as string;
-  const postSlug = routeParams.postSlug || firstPostSlug;
-  const post = allPosts.find((post) => post.slug === postSlug) as BlogPost;
+  const { posts, total } = await MappedByDate();
+  const Post = allPosts.find(({ slug }) => slug === postSlug) as BlogPost;
 
   return (
     <Grid
@@ -43,10 +34,10 @@ export default async function RootLayout({
       spacing={ 4 }>
       <Navigation
         posts={ posts }
-        expandAll={ total < 10 }
+        total={ total }
         slug={ postSlug }
-        yearIndex={ post.created.getFullYear() }
-        monthIndex={ post.created.getMonth() } />
+        yearIndex={ Post.created.getFullYear() }
+        monthIndex={ Post.created.getMonth() } />
       { children }
     </Grid>
   );

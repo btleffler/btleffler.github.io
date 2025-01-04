@@ -6,16 +6,15 @@ import BlogPost from '@/blog/BlogPost';
 export async function generateStaticParams() {
   const posts = await Posts();
 
-  return posts.map(({ slug: postSlug }) => ({ postSlug }));
+  return posts.map(({ slug: postSlug }) => ({ postSlug: encodeURI(postSlug) }));
 }
 
 export default async function BlogPostPage ({
   params,
 }: BlogParams) {
   const routeParams = await params;
+  const slug = decodeURI(routeParams.postSlug);
   const posts = await Posts();
-
-  const slug = routeParams.postSlug;
   const Post = posts.find(({ slug: postSlug }) => slug === postSlug) as BlogPost;
   const content = await Post.loadContent();
 

@@ -84,6 +84,7 @@ export async function MappedByDate (): Promise<{
     // Default the month level
     postCache.mappedByDate[year].months[monthIndex] = postCache.mappedByDate[year].months[monthIndex] || {
       month,
+      monthIndex,
       posts: [],
     };
 
@@ -100,7 +101,7 @@ export async function MappedByDate (): Promise<{
   if (!postCache.mappedByDate.length) {
     const now = new Date();
     const yearIndex = now.getFullYear();
-    const year = String(yearIndex);
+    const year = yearIndex;
     const monthIndex = now.getMonth();
     const month = monthString(now);
 
@@ -111,6 +112,7 @@ export async function MappedByDate (): Promise<{
 
     postCache.mappedByDate[yearIndex].months[monthIndex] = {
       month,
+      monthIndex,
       posts: [{
         slug: DEFAULT_POST.slug,
         title: DEFAULT_POST.title,
@@ -122,4 +124,10 @@ export async function MappedByDate (): Promise<{
     posts: postCache.mappedByDate,
     total: postCache.total,
   };
+}
+
+export async function CurrentPost (): Promise<BlogPost> {
+  const posts = await Posts();
+
+  return posts[0];
 }

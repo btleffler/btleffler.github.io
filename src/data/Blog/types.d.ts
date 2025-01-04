@@ -1,10 +1,15 @@
+export type LinksMappedByDatePost = {
+  title: string,
+  slug: string,
+};
+
+export type LinksMappedByDateMonth = {
+  month: string,
+  monthIndex: number,
+  posts: LinksMappedByDatePost[]
+};
+
 export type LinksMappedByDate = {
-  year: string,
-  months: {
-    month: string,
-    posts: {
-      title: string,
-      slug: string,
-    }[],
-  }[],
+  year: number,
+  months: LinksMappedByDateMonth[],
 };

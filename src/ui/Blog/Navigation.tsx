@@ -8,7 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { LinksMappedByDate } from '@/data/Blog/types';
+import {
+  LinksMappedByDate,
+  LinksMappedByDateMonth,
+  LinksMappedByDatePost,
+} from '@/data/Blog/types';
 
 import './styles.scss';
 
@@ -30,7 +34,7 @@ function NavItem ({
 
 function NavGroup ({
   header,
-  collapsed = true,
+  collapsed,
   children,
 }: {
   header: string,
@@ -48,8 +52,7 @@ function NavGroup ({
       </ListItemButton>
       <Collapse
         in={ open }
-        timeout="auto"
-        unmountOnExit>
+        timeout="auto">
         <List component="div" className="blog-navigation__group">
           { children }
         </List>
@@ -59,40 +62,40 @@ function NavGroup ({
 }
 
 export default function Navigation ({
-  expandAll,
   monthIndex,
   posts,
   slug,
+  total,
   yearIndex,
 }: {
-  expandAll: boolean,
   monthIndex: number,
   posts: LinksMappedByDate[],
   slug: string,
+  total: number,
   yearIndex: number,
 }) {
+  const expandAll = total < 10;
+
   // Map out all the links/nav groups
   const links = posts.map((
-    posts: LinksMappedByDate,
-    linksYearIndex: number,
+    {
+      year,
+      months,
+    }: LinksMappedByDate,
+    idx: number,
   ) => {
-    const collapsed = !expandAll && linksYearIndex !== yearIndex;
-    const monthGroups = posts.months.map(({
-      month,
-      posts,
-    }: {
-      month: string,
-      posts: {
-        slug: string,
-        title: string,
-      }[]
-    }, linksMonthIndex: number) => {
-      const collapsed = !expandAll && linksMonthIndex !== monthIndex;
+    const yearCollapsed = !expandAll && year !== yearIndex;
+    const monthGroups = months.map((
+      {
+        month,
+        monthIndex: linksMonthIndex,
+        posts,
+      }: LinksMappedByDateMonth,
+      idx: number
+    ) => {
+      const monthCollapsed = (!expandAll && yearCollapsed) || monthIndex !== linksMonthIndex;
       const postLinks = posts.map((
-        post: {
-          slug: string,
-          title: string,
-        },
+        post: LinksMappedByDatePost,
         idx: number,
       ) => (
         <NavItem
@@ -104,8 +107,8 @@ export default function Navigation ({
 
       return (
         <NavGroup
-          key={ linksMonthIndex }
-          collapsed={ collapsed }
+          key={ idx }
+          collapsed={ monthCollapsed }
           header={ month }>
           { postLinks }
         </NavGroup>
@@ -114,9 +117,9 @@ export default function Navigation ({
 
     return (
       <NavGroup
-        key={ linksYearIndex }
-        collapsed={ collapsed }
-        header={ posts.year }>
+        key={ idx }
+        collapsed={ yearCollapsed }
+        header={ String(year) }>
         { monthGroups }
       </NavGroup>
     );

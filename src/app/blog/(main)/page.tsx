@@ -1,8 +1,8 @@
-import Posts from '../../data/Blog/Posts';
+import { CurrentPost } from '@/data/Blog/Posts';
 import MuiMarkdown from 'mui-markdown';
 
 export default async function BlogHome () {
-  const Post = (await Posts())[0];
+  const Post = await CurrentPost();
   const content = await Post.loadContent();
 
   return (
