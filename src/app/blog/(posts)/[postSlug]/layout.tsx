@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import type { BlogParams } from '@/blog/types';
-import Grid from '@mui/material/Grid2';
-import Navigation from '@/ui/Blog/Navigation';
-import Posts, { MappedByDate } from '@/data/Blog/Posts';
+import BlogLayout from '@/ui/Blog/BlogLayout';
+import Posts, { MappedByDate } from '@/blog/Data/Posts';
 import BlogPost from '@/blog/BlogPost';
 
 export async function generateMetadata (
@@ -29,16 +28,11 @@ export default async function RootLayout({
   const Post = allPosts.find(({ slug }) => slug === postSlug) as BlogPost;
 
   return (
-    <Grid
-      container
-      spacing={ 4 }>
-      <Navigation
-        posts={ posts }
-        total={ total }
-        slug={ postSlug }
-        yearIndex={ Post.created.getFullYear() }
-        monthIndex={ Post.created.getMonth() } />
+    <BlogLayout
+      posts={ posts }
+      Post={ Post }
+      total={ total }>
       { children }
-    </Grid>
+    </BlogLayout>
   );
 }

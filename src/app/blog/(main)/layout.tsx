@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import type { BlogParams } from '@/blog/types';
-import Grid from '@mui/material/Grid2';
-import Navigation from '@/ui/Blog/Navigation';
-import { CurrentPost, MappedByDate } from '@/data/Blog/Posts';
+import BlogLayout from '@/ui/Blog/BlogLayout';
+import { CurrentPost, MappedByDate } from '@/blog/Data/Posts';
 
 export const metadata: Metadata = {
   title: 'Benjamin leffler - Blog',
@@ -16,16 +15,11 @@ export default async function RootLayout({
   const { posts, total } = await MappedByDate();
 
   return (
-    <Grid
-      container
-      spacing={ 4 }>
-      <Navigation
-        posts={ posts }
-        total={ total }
-        slug={ Post.slug }
-        yearIndex={ Post.created.getFullYear() }
-        monthIndex={ Post.created.getMonth() } />
+    <BlogLayout
+      posts={ posts }
+      Post={ Post }
+      total={ total }>
       { children }
-    </Grid>
+    </BlogLayout>
   );
 }

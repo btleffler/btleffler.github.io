@@ -1,7 +1,7 @@
 import { promises as Fs } from 'fs';
 import path from 'path';
 import BlogPost from '@/blog/BlogPost';
-import type { LinksMappedByDate } from '../types';
+import type { LinksMappedByDate } from '@/blog/types';
 
 const IGNORED = ['index.ts', '.DS_Store'];
 
@@ -15,7 +15,7 @@ DEFAULT_POST.content = 'no blog posts';
 
 const POST_MONTH_LOCALE: Intl.LocalesArgument = undefined;
 const POST_MONTH_OPTIONS: Intl.DateTimeFormatOptions = { month: 'long' };
-const POSTS_PATH = path.join(process.cwd(), 'src', 'data', 'Blog', 'Posts');
+const POSTS_PATH = path.join(process.cwd(), 'src', 'Blog', 'Data', 'Posts');
 
 const postCache: {
   posts: BlogPost[],

@@ -1,7 +1,7 @@
 import type { BlogParams } from '@/blog/types';
-import MuiMarkdown from 'mui-markdown';
-import Posts from '@/data/Blog/Posts';
+import Posts from '@/blog/Data/Posts';
 import BlogPost from '@/blog/BlogPost';
+import RenderedPost from '@/ui/Blog/RenderedPost';
 
 export async function generateStaticParams() {
   const posts = await Posts();
@@ -16,14 +16,10 @@ export default async function BlogPostPage ({
   const slug = decodeURI(routeParams.postSlug);
   const posts = await Posts();
   const Post = posts.find(({ slug: postSlug }) => slug === postSlug) as BlogPost;
-  const content = await Post.loadContent();
+
+  await Post.loadContent();
 
   return (
-    <>
-      <h1>{ Post.title }</h1>
-      <span>Hello from &apos;{ Post.slug }&apos;</span>
-      <p>{ Post.created.toLocaleDateString() } | { Post.updated?.toLocaleDateString() }</p>
-      <MuiMarkdown>{ content }</MuiMarkdown>
-    </>
+    <RenderedPost { ...Post } />
   );
 }

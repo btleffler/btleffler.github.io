@@ -12,7 +12,7 @@ import {
   LinksMappedByDate,
   LinksMappedByDateMonth,
   LinksMappedByDatePost,
-} from '@/data/Blog/types';
+} from '@/blog/types';
 
 import './styles.scss';
 
