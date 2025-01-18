@@ -11,28 +11,24 @@ const links: HomeLinkProps[] = [
   },
   {
     href: '/about',
-    subtitle: 'Basic Info',
+    subtitle: 'Basic Info - Resume',
     title: 'About',
   },
+  {
+    href: '/blog',
+    subtitle: 'Things I think of',
+    title: 'Blog',
+  },
 ];
-
-
+const homeLinks = links.map(({ href, subtitle, title }, idx) => (
+  <HomeLink
+    key={ idx }
+    href={ href }
+    subtitle={ subtitle }
+    title={ title } />
+));
 
 export default function Home() {
-  const homeLinks = links.map((
-    {
-      href,
-      subtitle,
-      title,
-    },
-    idx,
-  ) => (
-    <HomeLink
-      key={ idx }
-      href={ href }
-      subtitle={ subtitle }
-      title={ title } />
-  ));
   return (
     <>
       <Typography

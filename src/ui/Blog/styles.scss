@@ -1,0 +1,13 @@
+.blog-navigation {
+  width: 250px;
+
+  &__item {
+    padding-left: 1rem;
+  }
+}
+
+.blog-post {
+  &__title, &__content {
+    padding: 1rem;
+  }
+}
