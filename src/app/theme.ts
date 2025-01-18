@@ -26,6 +26,6 @@ export const theme = createTheme({
     divider: 'rgba(255,255,255,0.13)',
   },
   shape: {
-    borderRadius: 2,
+    borderRadius: 3,
   },
 });

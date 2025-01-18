@@ -21,7 +21,8 @@ export default function BlogLayout ({
   return (
     <Grid
       container
-      spacing={ 4 }>
+      spacing={ 2 }
+      padding={ 2 }>
       <Card>
         <Navigation
           posts={ posts }
@@ -30,7 +31,9 @@ export default function BlogLayout ({
           yearIndex={ created.getFullYear() }
           monthIndex={ created.getMonth() } />
       </Card>
-      { children }
+      <Grid size="grow">
+        { children }
+      </Grid>
     </Grid>
   );
 }

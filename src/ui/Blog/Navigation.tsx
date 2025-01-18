@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -27,7 +26,7 @@ function NavItem ({
 }) {
   return (
     <ListItemButton href={ href } selected={ selected }>
-      <ListItemText primary={ title } />
+      <ListItemText primary={ title } className='blog-navigation__item' />
     </ListItemButton>
   );
 }
@@ -53,7 +52,7 @@ function NavGroup ({
       <Collapse
         in={ open }
         timeout="auto">
-        <List component="div" className="blog-navigation__group">
+        <List component="div">
           { children }
         </List>
       </Collapse>
@@ -128,10 +127,7 @@ export default function Navigation ({
   return (
     <List
       component="nav"
-      className="blog-navigation"
-      subheader={
-        <ListSubheader>Posts</ListSubheader>
-      }>
+      className="blog-navigation">
       { links }
     </List>
   );
