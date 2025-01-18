@@ -15,7 +15,7 @@ DEFAULT_POST.content = 'no blog posts';
 
 const POST_MONTH_LOCALE: Intl.LocalesArgument = undefined;
 const POST_MONTH_OPTIONS: Intl.DateTimeFormatOptions = { month: 'long' };
-const POSTS_PATH = path.join(process.cwd(), 'src', 'Blog', 'Data', 'Posts');
+const POSTS_PATH = path.join(process.cwd(), 'src', 'blog', 'Data', 'Posts');
 
 const postCache: {
   posts: BlogPost[],
