@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { BlogParams } from '@/blog/types';
+import type { BlogLayoutParams } from '@/blog/types';
 import BlogLayout from '@/ui/Blog/BlogLayout';
 import { CurrentPost, MappedByDate } from '@/blog/Data/Posts';
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: BlogParams) {
+}: BlogLayoutParams) {
   const Post = await CurrentPost();
   const { posts, total } = await MappedByDate();
 

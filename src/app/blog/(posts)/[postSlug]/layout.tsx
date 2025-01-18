@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import type { BlogParams } from '@/blog/types';
+import type { BlogLayoutParams } from '@/blog/types';
 import BlogLayout from '@/ui/Blog/BlogLayout';
 import Posts, { MappedByDate } from '@/blog/Data/Posts';
 import BlogPost from '@/blog/BlogPost';
 
 export async function generateMetadata (
-  { params }: BlogParams
+  { params }: BlogLayoutParams
 ): Promise<Metadata> {
   const routeParams = await params;
   const slug = decodeURI(routeParams.postSlug);
@@ -19,7 +19,7 @@ export async function generateMetadata (
 export default async function RootLayout({
   children,
   params,
-}: BlogParams) {
+}: BlogLayoutParams) {
   const routeParams = await params;
   const postSlug = decodeURI(routeParams.postSlug);
 

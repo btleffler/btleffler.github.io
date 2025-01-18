@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 
 export type BlogParams = {
-  children: ReactNode
   params: Promise<{ postSlug: string }>,
 }
+
+export type BlogLayoutParams = { children: ReactNode } & BlogParams;
 
 export type Post = {
   content?: string,
