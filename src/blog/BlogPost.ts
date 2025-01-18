@@ -36,6 +36,15 @@ export default class BlogPost implements Post {
     this.updated = meta.updated ? new Date(meta.updated) : undefined;
     this.path = path;
 
+    // Only consider a post updated if it wasn't on the same day
+    if (
+      this.created.getFullYear() === this.updated?.getFullYear() &&
+      this.created.getMonth() === this.updated?.getMonth() &&
+      this.created.getDate() === this.updated?.getDate()
+    ) {
+      this.updated = undefined;
+    }
+
     return this;
   }
 
