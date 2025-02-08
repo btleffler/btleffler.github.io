@@ -23,15 +23,17 @@ export default function BlogLayout ({
       container
       spacing={ 2 }
       padding={ 2 }>
-      <Card>
-        <Navigation
-          posts={ posts }
-          total={ total }
-          slug={ slug }
-          yearIndex={ created.getFullYear() }
-          monthIndex={ created.getMonth() } />
-      </Card>
-      <Grid size="grow">
+      <Grid size={ { xs: 12, md: 2 } }>
+        <Card>
+          <Navigation
+            posts={ posts }
+            total={ total }
+            slug={ slug }
+            yearIndex={ created.getFullYear() }
+            monthIndex={ created.getMonth() } />
+        </Card>
+      </Grid>
+      <Grid size={ { xs: 12, md: "grow" } }>
         { children }
       </Grid>
     </Grid>
