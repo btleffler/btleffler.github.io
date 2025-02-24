@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import MuiMarkdown from 'mui-markdown';
+import NavToggle from '@/ui/Blog/Navigation/Toggle';
 
 export default function RenderedPost({
   content,
@@ -22,6 +23,7 @@ export default function RenderedPost({
           direction="row"
           spacing={ 1 }>
           <Grid size="grow">
+            <NavToggle />
             <Typography variant="h1">{ title }</Typography>
           </Grid>
           <Grid size="auto" alignContent="end">
