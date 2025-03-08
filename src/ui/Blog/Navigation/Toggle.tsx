@@ -1,15 +1,19 @@
-import { useContext } from 'react';
+'use client';
+
 import IconButton from '@mui/material/IconButton';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import MenuIcon from '@mui/icons-material/Menu';
-import { NavigationContext } from './Context';
+import { useNavigationContext } from './Context';
 
 export default function Toggle () {
-  const { setDrawerOpen } = useContext(NavigationContext);
+  const { drawerOpen, setDrawerOpen } = useNavigationContext();
   const handleClick = () => setDrawerOpen((open) => !open);
+
+  console.log('Toggle', { drawerOpen });
 
   return (
     <IconButton onClick={ handleClick }>
-      <MenuIcon />
+      { drawerOpen ? <KeyboardArrowLeftIcon /> : <MenuIcon /> }
     </IconButton>
   );
 }

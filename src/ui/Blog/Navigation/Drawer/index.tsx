@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+'use client';
+
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import { NavigationContext } from '../Context';
+import { useNavigationContext } from '../Context';
 import Group from './Group';
 import Item from './Item';
 import {
@@ -21,7 +22,7 @@ export default function Navigation ({
   slug: string,
   yearIndex: number,
 }) {
-  const { drawerOpen } = useContext(NavigationContext);
+  const { drawerOpen } = useNavigationContext();
 
   // Map out all the links/nav groups
   const links = posts.map((
@@ -66,6 +67,8 @@ export default function Navigation ({
       </Group>
     );
   });
+
+  console.log('Drawer', { drawerOpen });
 
   return (
     <Drawer open={ drawerOpen } variant="persistent">

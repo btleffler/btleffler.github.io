@@ -5,6 +5,8 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
+  useEffect,
   useState,
 } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -15,10 +17,14 @@ type NavigationState = {
   setDrawerOpen: Dispatch<SetStateAction<boolean>> | (() => void),
 };
 
-export const NavigationContext = createContext<NavigationState>({
+const NavigationContext = createContext<NavigationState>({
   drawerOpen: false,
   setDrawerOpen: () => {},
 });
+
+export function useNavigationContext() {
+  return useContext(NavigationContext);
+}
 
 export default function NavigationContextProvider ({
   children,
@@ -26,8 +32,22 @@ export default function NavigationContextProvider ({
   children: ReactNode,
 }) {
   const theme = useTheme();
-  const largeOrBigger = useMediaQuery(theme.breakpoints.up('lg'));
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(largeOrBigger);
+  const match = useMediaQuery(theme.breakpoints.up('lg'));
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(match);
+
+  useEffect(() => {
+    setDrawerOpen(match);
+  }, [setDrawerOpen, match]);
+
+  console.log('useMediaQuery', {
+    match,
+    xl: useMediaQuery(theme.breakpoints.up('xl')),
+    lg: useMediaQuery(theme.breakpoints.up('lg')),
+    md: useMediaQuery(theme.breakpoints.up('md')),
+    sm: useMediaQuery(theme.breakpoints.up('sm')),
+    xs: useMediaQuery(theme.breakpoints.up('xs')),
+  });
+  console.log('Context', { drawerOpen });
 
   const context = {
     drawerOpen,

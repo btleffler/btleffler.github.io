@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid2';
-import NavigationContextProvider from './Navigation/Context';
+import NavigationContextProvider from '@/ui/Blog/Navigation/Context';
 import NavDrawer from '@/ui/Blog/Navigation/Drawer';
+import NavToggle from '@/ui/Blog/Navigation/Toggle';
 import BlogPost from '@/blog/BlogPost';
 import { LinksMappedByDate } from '@/blog/types';
 
@@ -32,6 +33,7 @@ export default function BlogLayout ({
               yearIndex={ created.getFullYear() }
               monthIndex={ created.getMonth() } />
           </Card>
+          <NavToggle />
         </Grid>
         <Grid size={ { xs: 12, md: "grow" } }>
           { children }
