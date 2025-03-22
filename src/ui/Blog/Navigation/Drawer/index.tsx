@@ -68,8 +68,6 @@ export default function Navigation ({
     );
   });
 
-  console.log('Drawer', { drawerOpen });
-
   return (
     <Drawer open={ drawerOpen } variant="persistent">
       <List

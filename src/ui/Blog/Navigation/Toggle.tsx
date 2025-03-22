@@ -9,8 +9,6 @@ export default function Toggle () {
   const { drawerOpen, setDrawerOpen } = useNavigationContext();
   const handleClick = () => setDrawerOpen((open) => !open);
 
-  console.log('Toggle', { drawerOpen });
-
   return (
     <IconButton onClick={ handleClick }>
       { drawerOpen ? <KeyboardArrowLeftIcon /> : <MenuIcon /> }

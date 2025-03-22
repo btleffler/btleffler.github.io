@@ -6,11 +6,10 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
+  useEffect,
 } from 'react';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 type NavigationState = {
   drawerOpen: boolean,
@@ -32,22 +31,12 @@ export default function NavigationContextProvider ({
   children: ReactNode,
 }) {
   const theme = useTheme();
-  const match = useMediaQuery(theme.breakpoints.up('lg'));
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(match);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setDrawerOpen(match);
-  }, [setDrawerOpen, match]);
-
-  console.log('useMediaQuery', {
-    match,
-    xl: useMediaQuery(theme.breakpoints.up('xl')),
-    lg: useMediaQuery(theme.breakpoints.up('lg')),
-    md: useMediaQuery(theme.breakpoints.up('md')),
-    sm: useMediaQuery(theme.breakpoints.up('sm')),
-    xs: useMediaQuery(theme.breakpoints.up('xs')),
-  });
-  console.log('Context', { drawerOpen });
+    const isLargeScreen = window.innerWidth >= theme.breakpoints.values.lg;
+    setDrawerOpen(isLargeScreen);
+  }, [theme.breakpoints.values.lg]);
 
   const context = {
     drawerOpen,
